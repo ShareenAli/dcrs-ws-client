@@ -36,8 +36,6 @@ public class ObjectFactory {
     private final static QName _EnrollCourseResponse_QNAME = new QName("http://course/", "enrollCourseResponse");
     private final static QName _GetClassSchedule_QNAME = new QName("http://course/", "getClassSchedule");
     private final static QName _GetClassScheduleResponse_QNAME = new QName("http://course/", "getClassScheduleResponse");
-    private final static QName _InitializeValues_QNAME = new QName("http://course/", "initializeValues");
-    private final static QName _InitializeValuesResponse_QNAME = new QName("http://course/", "initializeValuesResponse");
     private final static QName _ListCourseAvailability_QNAME = new QName("http://course/", "listCourseAvailability");
     private final static QName _ListCourseAvailabilityResponse_QNAME = new QName("http://course/", "listCourseAvailabilityResponse");
     private final static QName _ShowCourses_QNAME = new QName("http://course/", "showCourses");
@@ -150,22 +148,6 @@ public class ObjectFactory {
      */
     public GetClassScheduleResponse createGetClassScheduleResponse() {
         return new GetClassScheduleResponse();
-    }
-
-    /**
-     * Create an instance of {@link InitializeValues }
-     * 
-     */
-    public InitializeValues createInitializeValues() {
-        return new InitializeValues();
-    }
-
-    /**
-     * Create an instance of {@link InitializeValuesResponse }
-     * 
-     */
-    public InitializeValuesResponse createInitializeValuesResponse() {
-        return new InitializeValuesResponse();
     }
 
     /**
@@ -402,32 +384,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://course/", name = "getClassScheduleResponse")
     public JAXBElement<GetClassScheduleResponse> createGetClassScheduleResponse(GetClassScheduleResponse value) {
         return new JAXBElement<GetClassScheduleResponse>(_GetClassScheduleResponse_QNAME, GetClassScheduleResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InitializeValues }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link InitializeValues }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://course/", name = "initializeValues")
-    public JAXBElement<InitializeValues> createInitializeValues(InitializeValues value) {
-        return new JAXBElement<InitializeValues>(_InitializeValues_QNAME, InitializeValues.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InitializeValuesResponse }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link InitializeValuesResponse }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://course/", name = "initializeValuesResponse")
-    public JAXBElement<InitializeValuesResponse> createInitializeValuesResponse(InitializeValuesResponse value) {
-        return new JAXBElement<InitializeValuesResponse>(_InitializeValuesResponse_QNAME, InitializeValuesResponse.class, null, value);
     }
 
     /**

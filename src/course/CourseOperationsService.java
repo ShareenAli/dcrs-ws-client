@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "CourseOperationsService", targetNamespace = "http://course/", wsdlLocation = "http://localhost:7896/ws/compserver?wsdl")
+@WebServiceClient(name = "CourseOperationsService", targetNamespace = "http://course/", wsdlLocation = "http://localhost:8200/ws/compserver?wsdl")
 public class CourseOperationsService
     extends Service
 {
@@ -30,7 +30,7 @@ public class CourseOperationsService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:7896/ws/compserver?wsdl");
+            url = new URL("http://localhost:8200/ws/compserver?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
@@ -65,11 +65,11 @@ public class CourseOperationsService
     /**
      * 
      * @return
-     *     returns CourseOperations
+     *     returns CourseInterface
      */
     @WebEndpoint(name = "CourseOperationsPort")
-    public CourseOperations getCourseOperationsPort() {
-        return super.getPort(new QName("http://course/", "CourseOperationsPort"), CourseOperations.class);
+    public CourseInterface getCourseOperationsPort() {
+        return super.getPort(new QName("http://course/", "CourseOperationsPort"), CourseInterface.class);
     }
 
     /**
@@ -77,11 +77,11 @@ public class CourseOperationsService
      * @param features
      *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
      * @return
-     *     returns CourseOperations
+     *     returns CourseInterface
      */
     @WebEndpoint(name = "CourseOperationsPort")
-    public CourseOperations getCourseOperationsPort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://course/", "CourseOperationsPort"), CourseOperations.class, features);
+    public CourseInterface getCourseOperationsPort(WebServiceFeature... features) {
+        return super.getPort(new QName("http://course/", "CourseOperationsPort"), CourseInterface.class, features);
     }
 
     private static URL __getWsdlLocation() {

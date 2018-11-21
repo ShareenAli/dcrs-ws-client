@@ -1,6 +1,6 @@
 package client;
 
-import course.CourseOperations;
+import course.CourseInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ class StudentOperations {
         this.logs = logs;
     }
 
-    void chooseOperation(String id, String deptName, CourseOperations courseStub) {
+    void chooseOperation(String id, String deptName, CourseInterface courseStub) {
         try {
             Scanner sc = new Scanner(System.in);
             String term;
@@ -54,7 +54,7 @@ class StudentOperations {
         }
     }
 
-    private void enrollCourse(String studentID, String term, String department, CourseOperations courseStub) {
+    private void enrollCourse(String studentID, String term, String department, CourseInterface courseStub) {
         Scanner sc = new Scanner(System.in);
         String course_id;
         boolean udpCall = false;
@@ -96,7 +96,7 @@ class StudentOperations {
         }
     }
 
-    private void dropCourse(String studentID, String term, String department, CourseOperations courseStub) {
+    private void dropCourse(String studentID, String term, String department, CourseInterface courseStub) {
         Scanner sc = new Scanner(System.in);
         String course_id;
         boolean udpCall = false;
@@ -122,7 +122,7 @@ class StudentOperations {
         }
     }
 
-    private void getClassSchedule(String studentID, CourseOperations courseStub) {
+    private void getClassSchedule(String studentID, CourseInterface courseStub) {
         String classScheduleMap = courseStub.getClassSchedule(studentID);
         if (!classScheduleMap.isEmpty()){
             System.out.println("Courses enrolled by " + studentID + " are as follows :-");
@@ -132,7 +132,7 @@ class StudentOperations {
         }
     }
 
-    private void swapCourse(String studentID, String term, String department, CourseOperations courseStub){
+    private void swapCourse(String studentID, String term, String department, CourseInterface courseStub){
         Scanner sc = new Scanner(System.in);
         String oldcourse_id, newcourse_id;
         boolean udpCall = false;
@@ -148,7 +148,7 @@ class StudentOperations {
 
     }
 
-    private void swapCourseMulti(String term, String department, CourseOperations courseStub) {
+    private void swapCourseMulti(String term, String department, CourseInterface courseStub) {
         Scanner sc = new Scanner(System.in);
         int noOfStudents;
         List<String> studentIds = new ArrayList<>();

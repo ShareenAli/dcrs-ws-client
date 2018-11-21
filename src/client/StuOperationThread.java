@@ -1,13 +1,13 @@
 package client;
 
-import course.CourseOperations;
+import course.CourseInterface;
 
 public class StuOperationThread implements Runnable {
     private Thread thread;
-    private CourseOperations courseStub;
+    private CourseInterface courseStub;
     private String term, department, studentId, oldCourseId, newCourseId;
 
-    StuOperationThread(CourseOperations courseStub, String term, String department, String studentId, String oldCourseId, String newCourseId) {
+    StuOperationThread(CourseInterface courseStub, String term, String department, String studentId, String oldCourseId, String newCourseId) {
         this.courseStub = courseStub;
         this.term = term;
         this.department = department;

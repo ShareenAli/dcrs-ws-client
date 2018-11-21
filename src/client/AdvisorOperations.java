@@ -1,6 +1,6 @@
 package client;
 
-import course.CourseOperations;
+import course.CourseInterface;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -15,13 +15,13 @@ class AdvisorOperations {
         this.logs = logs;
     }
 
-    void chooseOperation(String id, String deptName, CourseOperations courseStub) {
+    void chooseOperation(String id, String deptName, CourseInterface courseStub) {
         try {
             Scanner sc = new Scanner(System.in);
             String term;
-            System.out.println("\n Choose the operation you wish to perform :- \n "
+            System.out.println("\n Choose the operation you wish to perform :- \n"
                     + "1. Add Course \n"
-                    + "2. Remove Course \n "
+                    + "2. Remove Course \n"
                     + "3. List Course Availability\n"
                     + "4. Swap course (multiple students)\n");
             int operationChoice = Integer.parseInt(sc.nextLine());
@@ -87,7 +87,7 @@ class AdvisorOperations {
         }
     }
 
-    private static void addCourse(String clientID, String term, CourseOperations courseStub) {
+    private static void addCourse(String clientID, String term, CourseInterface courseStub) {
         Scanner sc = new Scanner(System.in);
         String course_name, course_id;
         int course_capacity;
@@ -126,7 +126,7 @@ class AdvisorOperations {
     }
 
 
-    private static void deleteCourse(String clientID, String term, String department, CourseOperations courseStub) {
+    private static void deleteCourse(String clientID, String term, String department, CourseInterface courseStub) {
         Scanner sc = new Scanner(System.in);
         String course_id, deleteDecision;
         String courses = courseStub.displayCourses(term);
@@ -153,12 +153,12 @@ class AdvisorOperations {
        }
     }
 
-    private static void listCourseAvailability(String id, String term, String dept, CourseOperations courseStub) {
+    private void listCourseAvailability(String id, String term, String dept, CourseInterface courseStub) {
         String courses = courseStub.listCourseAvailability(id, term, dept, true);
         System.out.println(courses);
     }
 
-    private void swapCourseMulti(String term, String department, CourseOperations courseStub) {
+    private void swapCourseMulti(String term, String department, CourseInterface courseStub) {
         Scanner sc = new Scanner(System.in);
         int noOfStudents;
         List<String> studentIds = new ArrayList<>();

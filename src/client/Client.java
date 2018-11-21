@@ -1,6 +1,6 @@
 package client;
 
-import course.CourseOperations;
+import course.CourseInterface;
 import course.CourseOperationsService;
 
 import java.io.IOException;
@@ -11,10 +11,28 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 public class Client {
+    private static int getWsPort(String name) {
+        int result = -1;
+
+        switch (name) {
+            case "COMP":
+                result = 8200;
+                break;
+            case "SOEN":
+                result = 8201;
+                break;
+            case "INSE":
+                result = 8202;
+                break;
+        }
+
+        return result;
+    }
+
     public static void main(String[] args) {
         String clientID, deptName = "";
         Boolean advisor_id_letter = false, student_id_letter = false, loop = true;
-        CourseOperations courseOperations;
+        CourseInterface courseOperations;
         CourseOperationsService courseOperationsService = null;
 
         Logger logs = Logger.getLogger("Student Client");
@@ -54,7 +72,10 @@ public class Client {
 
         if (advisor_id_letter || student_id_letter) {
             try {
-                URL url = new URL("http://localhost:7896/ws/" + deptName.toLowerCase() + "server");
+                String address = "http://localhost:" + getWsPort(deptName.toUpperCase()) + "/ws/"
+                        + deptName.toLowerCase() + "server";
+                URL url = new URL(address);
+                System.out.println(address);
 
                 courseOperationsService = new CourseOperationsService(url);
             } catch (MalformedURLException urlException) {
