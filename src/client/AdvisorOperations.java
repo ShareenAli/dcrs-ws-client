@@ -75,7 +75,7 @@ class AdvisorOperations {
                 if (term.equalsIgnoreCase("Fall") ||
                         term.equalsIgnoreCase("Winter") ||
                         term.equalsIgnoreCase("Summer")) {
-                    swapCourseMulti(term, deptName, courseStub);
+                    swapCourseMulti(term, deptName);
                 } else {
                     System.out.println("Please enter valid term name. Try Again!");
                 }
@@ -158,7 +158,7 @@ class AdvisorOperations {
         System.out.println(courses);
     }
 
-    private void swapCourseMulti(String term, String department, CourseInterface courseStub) {
+    private void swapCourseMulti(String term, String department) {
         Scanner sc = new Scanner(System.in);
         int noOfStudents;
         List<String> studentIds = new ArrayList<>();
@@ -186,7 +186,7 @@ class AdvisorOperations {
         }
 
         for (int i = 0; i < noOfStudents; i++) {
-            StuOperationThread stuOperationThread = new StuOperationThread(courseStub, term, department, studentIds.get(i), oldCourseIds.get(i), newCourseIds.get(i));
+            StuOperationThread stuOperationThread = new StuOperationThread(term, department, studentIds.get(i), oldCourseIds.get(i), newCourseIds.get(i));
             stuOperationThread.start();
         }
     }

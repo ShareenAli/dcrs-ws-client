@@ -43,7 +43,7 @@ class StudentOperations {
                     } else if (operationChoice == 4){
                         swapCourse(id, term, deptName, courseStub);
                     } else if (operationChoice == 5) {
-                        swapCourseMulti(term, deptName, courseStub);
+                        swapCourseMulti(term, deptName);
                     }
                 } else {
                     System.out.println("Please enter valid term name. Try Again!");
@@ -148,19 +148,19 @@ class StudentOperations {
 
     }
 
-    private void swapCourseMulti(String term, String department, CourseInterface courseStub) {
+    private void swapCourseMulti(String term, String department) {
         Scanner sc = new Scanner(System.in);
-        int noOfStudents;
+//        int noOfStudents;
         List<String> studentIds = new ArrayList<>();
         List<String> oldCourseIds = new ArrayList<>();
         List<String> newCourseIds = new ArrayList<>();
 
-        System.out.println("How many students to go at once?: ");
-        noOfStudents = Integer.parseInt(sc.nextLine());
+//        System.out.println("How many students to go at once?: ");
+//        noOfStudents = Integer.parseInt(sc.nextLine());
         System.out.println("\nPlease enter Course ID of the course you wish to enroll for : ");
         String newcourse_id = sc.nextLine().toUpperCase();
 
-        for (int i = 0; i < noOfStudents; i++) {
+        for (int i = 0; i < 3; i++) {
             System.out.println("Student Id: ");
             String studentId = sc.nextLine().toUpperCase();
 
@@ -175,8 +175,8 @@ class StudentOperations {
             System.out.println(" ");
         }
 
-        for (int i = 0; i < noOfStudents; i++) {
-            StuOperationThread stuOperationThread = new StuOperationThread(courseStub, term, department, studentIds.get(i), oldCourseIds.get(i), newCourseIds.get(i));
+        for (int i = 0; i < 3; i++) {
+            StuOperationThread stuOperationThread = new StuOperationThread(term, department, studentIds.get(i), oldCourseIds.get(i), newCourseIds.get(i));
             stuOperationThread.start();
         }
     }

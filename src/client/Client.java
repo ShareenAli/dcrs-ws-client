@@ -11,7 +11,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 public class Client {
-    private static int getWsPort(String name) {
+    public static int getWsPort(String name) {
         int result = -1;
 
         switch (name) {
