@@ -1,7 +1,10 @@
 package client;
 
 import course.CourseInterface;
+import course.CourseOperationsService;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,7 +26,8 @@ class StudentOperations {
                     + "2. Drop Course \n "
                     + "3. View Class Schedule \n"
                     + "4. Swap Course \n"
-                    + "5. Swap Course (multiple students)\n");
+                    + "5. Swap Course (multiple students)\n"
+                    + "6. Multiple Swap Course\n");
             int operationChoice = Integer.parseInt(sc.nextLine());
             if (operationChoice == 3) {
                 getClassSchedule(id, courseStub);
@@ -44,6 +48,8 @@ class StudentOperations {
                         swapCourse(id, term, deptName, courseStub);
                     } else if (operationChoice == 5) {
                         swapCourseMulti(term, deptName);
+                    } else if (operationChoice == 6) {
+                        multipleSwapCourse(term, deptName, courseStub);
                     }
                 } else {
                     System.out.println("Please enter valid term name. Try Again!");
@@ -179,5 +185,104 @@ class StudentOperations {
             StuOperationThread stuOperationThread = new StuOperationThread(term, department, studentIds.get(i), oldCourseIds.get(i), newCourseIds.get(i));
             stuOperationThread.start();
         }
+    }
+
+    private void displayIds(List<String> ids) {
+        for (String id : ids) {
+            System.out.println("id: " + id);
+        }
+    }
+
+    private void multipleSwapCourse(String term, String department, CourseInterface courseInterface) {
+        String compStudentId = "COMPS1005";
+        String soenStudentId = "SOENS1005";
+        String inseStudentId = "INSES1005";
+
+        String newCourseId = "COMP1004";
+
+        addCourses("COMP1005", "COMP5");
+        addCourses("COMP1004", "COMP4");
+        addCourses("SOEN1005", "SOEN5");
+        addCourses("INSE1005", "INSE5");
+
+        enrollStudents("COMPS1005", "SOEN1005");
+        enrollStudents("SOENS1005", "INSE1005");
+        enrollStudents("INSES1005", "COMP1005");
+
+//        // Get Schedule after swapping
+        this.getClassSchedules("COMPS1005");
+        this.getClassSchedules("SOENS1005");
+        this.getClassSchedules("INSES1005");
+
+        StuOperationThread compStudentThread = new StuOperationThread(term, department, compStudentId,
+                "SOEN1005", newCourseId);
+        compStudentThread.start();
+        StuOperationThread soenStudentThread = new StuOperationThread(term, department, soenStudentId,
+                "INSE1005", newCourseId);
+        soenStudentThread.start();
+        StuOperationThread inseStudentThread = new StuOperationThread(term, department, inseStudentId,
+                "COMP1005", newCourseId);
+        inseStudentThread.start();
+
+        //        // Get Schedule after swapping
+        this.getClassSchedules("COMPS1005");
+        this.getClassSchedules("SOENS1005");
+        this.getClassSchedules("INSES1005");
+    }
+
+    private void getClassSchedules(String studentId) {
+        String deptName = studentId.substring(0, 4);
+        CourseInterface stub = makeServer(deptName);
+
+        if (stub == null)
+            return;
+
+        String message = stub.getClassSchedule(studentId);
+        System.out.println("Student: " + studentId + " message - " + message);
+    }
+
+    private void enrollStudents(String studentId, String courseId) {
+        String deptName = studentId.substring(0, 4);
+        CourseInterface stub = makeServer(deptName);
+        boolean udpCall = false;
+
+        if (stub == null)
+            return;
+
+        if(!(courseId.substring(0,4).equalsIgnoreCase(studentId.substring(0, 4))))
+            udpCall = true;
+
+        String message = stub.enrollCourse(studentId, "fall", deptName, courseId, udpCall, false, true);
+        System.out.println("Student: " + studentId + " Course: " + courseId + " - " + message);
+    }
+
+    private void addCourses(String courseId, String name) {
+        String deptName = courseId.substring(0, 4).toUpperCase();
+        String advisor = deptName + "A1001";
+
+        CourseInterface stub = makeServer(deptName);
+
+        if (stub == null)
+            return;
+
+        boolean success = stub.addCourse(advisor, courseId, name, "fall", 2);
+        System.out.println(advisor + " courseId: " + courseId + " - " + String.valueOf(success));
+    }
+
+    @SuppressWarnings("Duplicates")
+    private CourseInterface makeServer(String deptName) {
+        CourseOperationsService courseOperationsService = null;
+        try {
+            String address = "http://localhost:" + Client.getWsPort(deptName.toUpperCase()) + "/ws/"
+                    + deptName.toLowerCase() + "server";
+            URL url = new URL(address);
+            System.out.println(address);
+            courseOperationsService = new CourseOperationsService(url);
+
+            return courseOperationsService.getCourseOperationsPort();
+        } catch (MalformedURLException urlException) {
+            System.out.println("There has been a problem with URL.\nMessage: " + urlException.getMessage());
+        }
+        return null;
     }
 }

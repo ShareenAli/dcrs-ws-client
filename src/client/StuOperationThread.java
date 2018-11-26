@@ -41,7 +41,7 @@ public class StuOperationThread implements Runnable {
     }
 
     void start() {
-        System.out.println(studentId + " and " + newCourseId);
+        System.out.println("Student ID : " + studentId + "\nOld Course ID : " + oldCourseId + "\nNew Course ID : " + newCourseId);
         if (thread == null) {
             thread = new Thread(this, "multi thread swap course");
             thread.start();
